@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Tasty Cocktails</string>
+    <string name="facebook_app_id">407276942997376</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="cancel_login">Login cancelado</string>
+    <string name="error_login">Ocurrió un error al iniciar sesión</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="inicio">Inicio</string>
+    <string name="perfil">Perfil</string>
+    <string name="mensajes">Mensajes</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="salir">Salir</string>
+    <string name="buscar">Buscar</string>
+</resources>

@@ -1,0 +1,53 @@
+{
+  "project_info": {
+    "project_number": "279328214330",
+    "firebase_url": "https://tasty-cocktails.firebaseio.com",
+    "project_id": "tasty-cocktails",
+    "storage_bucket": "tasty-cocktails.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279328214330:android:e91afd6e639b327a",
+        "android_client_info": {
+          "package_name": "com.leosssdroid.tastycocktails"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279328214330-i4o738nnbatrch0bi26pcapjs0sigphk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leosssdroid.tastycocktails",
+            "certificate_hash": "53856394540811D5D6240449253DEF7FB318E8D9"
+          }
+        },
+        {
+          "client_id": "279328214330-9divvdss6fd5ilhoaohg75502spoh2hn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [{
+        "current_key": "AIzaSyBk4S8ZorVu7F6JL1Yo7EmmQjtQT47OIbU"
+      }],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279328214330-9divvdss6fd5ilhoaohg75502spoh2hn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
