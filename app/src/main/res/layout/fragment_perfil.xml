@@ -41,17 +41,17 @@
         android:elevation="4dp"/>
 
     <TextView
-        android:text="Leosss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/profileName"
         android:textColor="@color/textProfile"
         android:textSize="16dp"
+        android:textStyle="bold"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/profileImage"
-        app:layout_constraintLeft_toLeftOf="@+id/relativeLayout"
-        app:layout_constraintRight_toRightOf="@+id/relativeLayout"
-        android:elevation="4dp"/>
+        app:layout_constraintLeft_toLeftOf="@+id/profileImage"
+        app:layout_constraintRight_toRightOf="@+id/profileImage"
+        android:elevation="4dp" />
 
     <ImageButton
         android:id="@+id/ibLogoutFb"
@@ -65,6 +65,20 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         app:layout_constraintTop_toTopOf="@+id/relativeLayout"
-        app:layout_constraintRight_toRightOf="@+id/relativeLayout" />
+        app:layout_constraintRight_toRightOf="@+id/relativeLayout"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/profileDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textProfile"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/profileName"
+        app:layout_constraintLeft_toLeftOf="@+id/profileName"
+        app:layout_constraintRight_toRightOf="@+id/profileName"
+        android:elevation="4dp" />
 
 </android.support.constraint.ConstraintLayout>

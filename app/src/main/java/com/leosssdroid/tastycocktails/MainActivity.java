@@ -9,6 +9,12 @@ import android.view.Window;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.facebook.Profile;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.leosssdroid.tastycocktails.Fragments.BuscarFragment;
 import com.leosssdroid.tastycocktails.Fragments.FavoritosFragment;
 import com.leosssdroid.tastycocktails.Fragments.InicioFragment;
@@ -80,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     private void createItemsBottomNavigation() {
         AHBottomNavigationItem inicio = new AHBottomNavigationItem(R.string.inicio, R.drawable.ic_home, R.color.colorInicioBase);
         AHBottomNavigationItem buscar = new AHBottomNavigationItem(R.string.buscar, R.drawable.ic_search, R.color.colorBuscarBase);
@@ -100,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setNotification("1", 4);
 
     }
+
 
 
 

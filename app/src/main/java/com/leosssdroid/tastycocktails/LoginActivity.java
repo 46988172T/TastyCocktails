@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }else if(userSnapshot.getIdFacebbok().equals(userTasty.getIdFacebbok())){
                                     System.out.println("USER FOUND!!!!!!!!!!!!!!!");
                                     userFound = true; //auth != null
+                                    userTasty = userSnapshot;
                                     break;
                                 }
                             }
