@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference usersRef = mDatabase.child("users");
     private LoginButton loginButton;
     private boolean userFound = false;
-    public UserTasty userTasty;
+    public static UserTasty userTasty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         userTasty.setName(currentProfile.getName());
         userTasty.setFirstName(currentProfile.getFirstName());
         userTasty.setLastName(currentProfile.getLastName());
-        userTasty.setPicture(currentProfile.getProfilePictureUri(128,128).toString()); //ojo! este dato es android.net.Uri que es diferente a java.net.URI
+        userTasty.setPicture(currentProfile.getProfilePictureUri(128,128).toString()); //ojo! este dato es android.net.Uri que es diferente a java.net.URI... lo parseamos a Styring para guardarlo en Firebase.
         userTasty.setDescription("Sin descripción");
     }
 

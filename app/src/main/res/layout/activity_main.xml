@@ -8,43 +8,12 @@
     android:fitsSystemWindows="true"
     tools:context="com.leosssdroid.tastycocktails.MainActivity">
 
+    <include layout="@layout/content_main"/>
 
-    <Button
-        android:onClick="logout"
-        android:text="@string/salir"
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center|center"
-        android:layout_marginBottom="222dp" />
-
-    <TextView
-        android:id="@+id/tvPrueba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|center"/>
-
-
-    <android.support.design.widget.BottomNavigationView
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
         android:id="@+id/navigation"
-        android:elevation="2dp"
-        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        design:menu="@menu/menu_navigation" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:layout_marginEnd="@dimen/fab_margin"
-        design:fabSize="normal"
-        design:srcCompat="@drawable/ic_create"
-        android:id="@+id/floatingActionButton" />
+        android:layout_gravity="bottom"/>
 
 </android.support.design.widget.CoordinatorLayout>

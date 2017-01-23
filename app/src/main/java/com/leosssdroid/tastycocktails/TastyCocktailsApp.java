@@ -11,7 +11,6 @@ import com.facebook.appevents.AppEventsLogger;
 
 public class TastyCocktailsApp extends Application{
 
-
     @Override
     public void onCreate() {
         super.onCreate();

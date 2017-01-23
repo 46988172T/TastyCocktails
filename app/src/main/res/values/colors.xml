@@ -3,4 +3,34 @@
     <color name="colorPrimary">#c7daa3</color>
     <color name="colorPrimaryDark">#818479</color>
     <color name="colorAccent">#aa6da3</color>
+
+
+    <!-- COLOR TABS BOTTOM MENU-->
+    <color name="colorInicioBase">#8b9972</color>
+    <color name="colorInicioActivo">#c7daa3</color>
+    <color name="colorInicioInactivo">#576047</color>
+
+    <color name="colorBuscarBase">#818479</color>
+    <color name="colorBuscarActivo">#d0d4c5</color>
+    <color name="colorBuscarInactivo">#53544E</color>
+
+    <color name="colorPerfilBase">#aa6da3</color>
+    <color name="colorPerfilActivo">#aa6da3</color>
+    <color name="colorPerfilInactivo">#aa6da3</color>
+
+    <color name="colorFavoritosBase">#6f72a9</color>
+    <color name="colorFavoritosActivo">#d3d6fa</color>
+    <color name="colorFavoritosInactivo">#32356c</color>
+
+    <color name="colorMensajesBase">#e29255</color>
+    <color name="colorMensajesActivo">#fccba7</color>
+    <color name="colorMensajesInactivo">#895934</color>
+
+
+    <!--- Color filters -->
+    <color name="bgProfile">#512c4d</color>
+
+    <!---TextColors-->
+    <color name="textProfile">#ffffff</color>
+
 </resources>
