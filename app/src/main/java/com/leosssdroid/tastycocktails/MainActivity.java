@@ -20,6 +20,7 @@ import com.leosssdroid.tastycocktails.Fragments.FavoritosFragment;
 import com.leosssdroid.tastycocktails.Fragments.InicioFragment;
 import com.leosssdroid.tastycocktails.Fragments.MensajesFragment;
 import com.leosssdroid.tastycocktails.Fragments.PerfilFragment;
+import com.leosssdroid.tastycocktails.Fragments.RecetaFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         navigation.setInactiveColor(Color.parseColor("#32356c"));
                         break;
                     case 4:
-                        MensajesFragment mensajesFragment = new MensajesFragment();
+                        RecetaFragment mensajesFragment = new RecetaFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, mensajesFragment).commit();
                         getWindow().setStatusBarColor(getResources().getColor(R.color.colorMensajesBase));
                         navigation.setAccentColor(Color.parseColor("#fccba7"));

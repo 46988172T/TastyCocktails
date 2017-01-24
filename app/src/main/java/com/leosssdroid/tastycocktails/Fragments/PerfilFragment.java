@@ -1,9 +1,11 @@
 package com.leosssdroid.tastycocktails.Fragments;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,32 +63,50 @@ public class PerfilFragment extends Fragment {
 
         viewPerfil = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        bgProfile = (ImageView)viewPerfil.findViewById(R.id.bgProfile);
-        profileImage = (CircleImageView)viewPerfil.findViewById(R.id.profileImage);
-        profileName = (TextView)viewPerfil.findViewById(R.id.profileName);
-        profileDescription = (TextView)viewPerfil.findViewById(R.id.profileDescription);
+
+            bgProfile = (ImageView)viewPerfil.findViewById(R.id.bgProfile);
+            profileImage = (CircleImageView)viewPerfil.findViewById(R.id.profileImage);
+            profileName = (TextView)viewPerfil.findViewById(R.id.profileName);
+            profileDescription = (TextView)viewPerfil.findViewById(R.id.profileDescription);
 
 
-        Glide.with(getContext())
-                .load(Profile.getCurrentProfile().getProfilePictureUri(256,256).toString())
-                .into(profileImage);
+            Glide.with(getContext())
+                    .load(Profile.getCurrentProfile().getProfilePictureUri(256,256).toString())
+                    .into(profileImage);
 
-        Glide.with(getContext())
-                .load(Profile.getCurrentProfile().getProfilePictureUri(512,512).toString())
-                //.centerCrop()
-                .bitmapTransform(new GrayscaleTransformation(getContext()),
-                        new CenterCrop(getContext()),
-                        new BlurTransformation(getContext(),10)
+            Glide.with(getContext())
+                    .load(Profile.getCurrentProfile().getProfilePictureUri(512,512).toString())
+                    //.centerCrop()
+                    .bitmapTransform(new GrayscaleTransformation(getContext()),
+                            new CenterCrop(getContext()),
+                            new BlurTransformation(getContext(),10)
 
-                )
-                .into(bgProfile);
-        ibLogoutFb = (ImageButton)viewPerfil.findViewById(R.id.ibLogoutFb);
-        ibLogoutFb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logout();
-            }
-        });
+                    )
+                    .into(bgProfile);
+            ibLogoutFb = (ImageButton)viewPerfil.findViewById(R.id.ibLogoutFb);
+            ibLogoutFb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage(R.string.dialog_message)
+                            .setTitle(R.string.dialog_title);
+                    builder.setPositiveButton(R.string.salir, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logout();
+                        }
+                    });
+                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+                    builder.show();
+                    AlertDialog dialog = builder.create();
+
+
+                }
+            });
+
         return viewPerfil;
     }
 

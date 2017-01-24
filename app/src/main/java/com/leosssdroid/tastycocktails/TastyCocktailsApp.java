@@ -2,6 +2,7 @@ package com.leosssdroid.tastycocktails;
 
 import android.app.Application;
 
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
@@ -16,5 +17,6 @@ public class TastyCocktailsApp extends Application{
         super.onCreate();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        TypefaceProvider.registerDefaultIconSets();
     }
 }

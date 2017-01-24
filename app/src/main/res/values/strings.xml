@@ -28,4 +28,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dialog_message">Salir del login con Facebook?</string>
+    <string name="dialog_title">Salir</string>
+    <string name="cancel">Cancelar</string>
 </resources>
