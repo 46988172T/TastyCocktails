@@ -1,0 +1,89 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/textProfile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppThemeTasty"
+    tools:context="com.leosssdroid.tastycocktails.Fragments.AddRecetaFragment">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/cardView">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:textCursorDrawable="@null"
+                android:textColor="@color/text_color_selector"
+                android:ems="10"
+                android:id="@+id/recipe_name_text"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:hint="Nombre de tu cocktail"
+                android:maxLines="1" />
+
+            <EditText
+                android:hint="Descripción del cocktail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:textCursorDrawable="@null"
+                android:textColor="@color/text_color_selector"
+                android:ems="10"
+                android:id="@+id/recipe_description_text"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_name_text"/>
+
+            <EditText
+                android:hint="Ingredientes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:textCursorDrawable="@null"
+                android:textColor="@color/text_color_selector"
+                android:ems="10"
+                android:id="@+id/recipe_ingredientes_text"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_description_text"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.46" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:text="Subir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upload_button"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -31,4 +31,8 @@
     <string name="dialog_message">Salir del login con Facebook?</string>
     <string name="dialog_title">Salir</string>
     <string name="cancel">Cancelar</string>
+    <string name="genial">Genial!</string>
+    <string name="dialog_add_receta">Receta de tu cóctel subida!</string>
+    <string name="entendido">Entendido!</string>
+    <string name="dialog_receta_incompleta">Debes completar todos los campos de la receta para poder guardarla.</string>
 </resources>

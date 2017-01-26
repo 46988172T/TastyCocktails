@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,18 +24,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.leosssdroid.tastycocktails.LoginActivity;
-import com.leosssdroid.tastycocktails.MainActivity;
 import com.leosssdroid.tastycocktails.R;
-import com.leosssdroid.tastycocktails.UserTasty;
+import com.leosssdroid.tastycocktails.Clases.UserTasty;
 
-import org.w3c.dom.Text;
+import java.util.List;
 
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 import jp.wasabeef.glide.transformations.GrayscaleTransformation;
-import jp.wasabeef.glide.transformations.gpu.BrightnessFilterTransformation;
-import jp.wasabeef.glide.transformations.gpu.PixelationFilterTransformation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,14 +42,17 @@ import jp.wasabeef.glide.transformations.gpu.PixelationFilterTransformation;
 public class PerfilFragment extends Fragment {
 
     View viewPerfil;
-    ImageView bgProfile;
-    CircleImageView profileImage;
-    TextView profileName, profileDescription;
-    ImageButton ibLogoutFb;
+
+    @BindView(R.id.bgProfile) ImageView bgProfile;
+    @BindView(R.id.profileImage) CircleImageView profileImage;
+    @BindView(R.id.profileName) TextView profileName;
+    @BindView(R.id.profileDescription) TextView profileDescription;
+    @BindView(R.id.ibLogoutFb) ImageButton ibLogoutFb;
 
     static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     static DatabaseReference userRef = mDatabase.child("users");
     UserTasty userTastyFromFirebase;
+
     public PerfilFragment() {
         // Required empty public constructor
     }
@@ -62,50 +63,47 @@ public class PerfilFragment extends Fragment {
         // Inflate the layout for this fragment
 
         viewPerfil = inflater.inflate(R.layout.fragment_perfil, container, false);
+        ButterKnife.bind(this,viewPerfil);
+            if(Profile.getCurrentProfile() != null) {
+                Glide.with(getContext())
+                        .load(Profile.getCurrentProfile().getProfilePictureUri(256, 256).toString())
+                        .into(profileImage);
+
+                Glide.with(getContext())
+                        .load(Profile.getCurrentProfile().getProfilePictureUri(512, 512).toString())
+                        //.centerCrop()
+                        .bitmapTransform(new GrayscaleTransformation(getContext()),
+                                new CenterCrop(getContext()),
+                                new BlurTransformation(getContext(), 10)
+
+                        )
+                        .into(bgProfile);
+                //ibLogoutFb = (ImageButton) viewPerfil.findViewById(R.id.ibLogoutFb);
+                ibLogoutFb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage(R.string.dialog_message)
+                                .setTitle(R.string.dialog_title);
+                        builder.setPositiveButton(R.string.salir, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                logout();
+                            }
+                        });
+                        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                        builder.show();
+                        AlertDialog dialog = builder.create();
 
 
-            bgProfile = (ImageView)viewPerfil.findViewById(R.id.bgProfile);
-            profileImage = (CircleImageView)viewPerfil.findViewById(R.id.profileImage);
-            profileName = (TextView)viewPerfil.findViewById(R.id.profileName);
-            profileDescription = (TextView)viewPerfil.findViewById(R.id.profileDescription);
-
-
-            Glide.with(getContext())
-                    .load(Profile.getCurrentProfile().getProfilePictureUri(256,256).toString())
-                    .into(profileImage);
-
-            Glide.with(getContext())
-                    .load(Profile.getCurrentProfile().getProfilePictureUri(512,512).toString())
-                    //.centerCrop()
-                    .bitmapTransform(new GrayscaleTransformation(getContext()),
-                            new CenterCrop(getContext()),
-                            new BlurTransformation(getContext(),10)
-
-                    )
-                    .into(bgProfile);
-            ibLogoutFb = (ImageButton)viewPerfil.findViewById(R.id.ibLogoutFb);
-            ibLogoutFb.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setMessage(R.string.dialog_message)
-                            .setTitle(R.string.dialog_title);
-                    builder.setPositiveButton(R.string.salir, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            logout();
-                        }
-                    });
-                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
-                    builder.show();
-                    AlertDialog dialog = builder.create();
-
-
-                }
-            });
+                    }
+                });
+            }else{
+                goLoginActivity();
+            }
 
         return viewPerfil;
     }

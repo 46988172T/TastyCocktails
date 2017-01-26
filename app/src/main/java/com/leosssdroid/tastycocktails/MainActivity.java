@@ -3,37 +3,31 @@ package com.leosssdroid.tastycocktails;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.facebook.Profile;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.leosssdroid.tastycocktails.Fragments.BuscarFragment;
 import com.leosssdroid.tastycocktails.Fragments.FavoritosFragment;
 import com.leosssdroid.tastycocktails.Fragments.InicioFragment;
-import com.leosssdroid.tastycocktails.Fragments.MensajesFragment;
 import com.leosssdroid.tastycocktails.Fragments.PerfilFragment;
-import com.leosssdroid.tastycocktails.Fragments.RecetaFragment;
+import com.leosssdroid.tastycocktails.Fragments.AddRecetaFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AHBottomNavigation navigation;
+    @BindView(R.id.navigation) AHBottomNavigation navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorInicioBase));
-        navigation = (AHBottomNavigation)findViewById(R.id.navigation);
         createItemsBottomNavigation();
-        navigation = (AHBottomNavigation)findViewById(R.id.navigation);
 
         //Inicio
         InicioFragment inicioFragment = new InicioFragment();
@@ -75,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         navigation.setInactiveColor(Color.parseColor("#32356c"));
                         break;
                     case 4:
-                        RecetaFragment mensajesFragment = new RecetaFragment();
+                        AddRecetaFragment mensajesFragment = new AddRecetaFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, mensajesFragment).commit();
                         getWindow().setStatusBarColor(getResources().getColor(R.color.colorMensajesBase));
                         navigation.setAccentColor(Color.parseColor("#fccba7"));
@@ -106,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         navigation.setColored(true);
         navigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
         navigation.setNotification("1", 4);
-
     }
 
 

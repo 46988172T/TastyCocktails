@@ -1,4 +1,4 @@
-package com.leosssdroid.tastycocktails;
+package com.leosssdroid.tastycocktails.Clases;
 
 import android.net.Uri;
 
