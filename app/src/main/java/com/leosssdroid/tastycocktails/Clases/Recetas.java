@@ -8,16 +8,18 @@ import java.util.Map;
  */
 
 public class Recetas {
-    private String nombre, descripcion, ingredientes;
+    private String nombre, descripcion, ingredientes, picture, idUsuario;
     //private Map<Integer,String> pasos = new HashMap<Integer, String>();
 
     public Recetas() {
     }
 
-    public Recetas(String nombre, String descripcion, String ingredientes/*, Map<Integer, String> pasos*/) {
+    public Recetas(String nombre, String descripcion, String ingredientes, String picture, String idUsuario/*, Map<Integer, String> pasos*/) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ingredientes = ingredientes;
+        this.picture = picture;
+        this.idUsuario = idUsuario;
         //this.pasos = pasos;
     }
 
@@ -43,6 +45,22 @@ public class Recetas {
 
     public void setIngredientes(String ingredientes) {
         this.ingredientes = ingredientes;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     /*public Map<Integer, String> getPasos() {

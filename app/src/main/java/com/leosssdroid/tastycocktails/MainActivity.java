@@ -3,7 +3,17 @@ package com.leosssdroid.tastycocktails;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -19,8 +29,11 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.navigation) AHBottomNavigation navigation;
-    public static PermissionGranted permissionGranted;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+
+    private int mSelectedItem;
+    private static final String SELECTED_ITEM = "arg_selected_item";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,92 +42,90 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorInicioBase));
-        createItemsBottomNavigation();
-        permissionGranted = new PermissionGranted(this);
-        if (android.os.Build.VERSION.SDK_INT >= 25) {
-            permissionGranted.checkAllMagicalCameraPermission();
-        }else{
-            permissionGranted.checkCameraPermission();
-            permissionGranted.checkReadExternalPermission();
-            permissionGranted.checkWriteExternalPermission();
-            permissionGranted.checkLocationPermission();
-        }
-        //Inicio
-        InicioFragment inicioFragment = new InicioFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, inicioFragment).commit();
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorInicioBase));
-        navigation.setAccentColor(Color.parseColor("#C7DAA3"));
-        navigation.setInactiveColor(Color.parseColor("#576047"));
 
-        navigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+        View view = navigation.findViewById(R.id.menu_perfilItem);
+        view.performClick();
+        selectFragment(navigation.getMenu().getItem(2));
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
-                switch(position){
-                    case 0:
-                        InicioFragment inicioFragment = new InicioFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, inicioFragment).commit();
-                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorInicioBase));
-                        navigation.setAccentColor(Color.parseColor("#C7DAA3"));
-                        navigation.setInactiveColor(Color.parseColor("#576047"));
-                        break;
-                    case 1:
-                        BuscarFragment buscarFragment = new BuscarFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, buscarFragment).commit();
-                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorBuscarBase));
-                        navigation.setAccentColor(Color.parseColor("#d0d4c5"));
-                        navigation.setInactiveColor(Color.parseColor("#53544E"));
-                        break;
-                    case 2:
-                        PerfilFragment perfilFragment = new PerfilFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, perfilFragment).commit();
-                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPerfilBase));
-                        navigation.setAccentColor(Color.parseColor("#E6D3E3"));
-                        navigation.setInactiveColor(Color.parseColor("#7F3E77"));
-                        break;
-                    case 3:
-                        FavoritosFragment favoritosFragment = new FavoritosFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, favoritosFragment).commit();
-                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorFavoritosBase));
-                        navigation.setAccentColor(Color.parseColor("#d3d6fa"));
-                        navigation.setInactiveColor(Color.parseColor("#32356c"));
-                        break;
-                    case 4:
-                        AddRecetaFragment mensajesFragment = new AddRecetaFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, mensajesFragment).commit();
-                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorMensajesBase));
-                        navigation.setAccentColor(Color.parseColor("#fccba7"));
-                        navigation.setInactiveColor(Color.parseColor("#895934"));
-                        break;
-                }
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectFragment(item);
                 return true;
             }
         });
+
+        /*MenuItem selectedItem;
+        if (savedInstanceState != null) {
+            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
+            selectedItem = navigation.getMenu().findItem(mSelectedItem);
+        } else {
+            selectedItem = navigation.getMenu().getItem(0);
+        }
+        selectFragment(selectedItem);*/
+
     }
 
+    private void selectFragment(MenuItem item) {
+        Fragment frag = null;
+        // init corresponding fragment
+        switch (item.getItemId()) {
+            case R.id.menu_inicioItem:
+                frag = new InicioFragment();
 
-    private void createItemsBottomNavigation() {
-        AHBottomNavigationItem inicio = new AHBottomNavigationItem(R.string.inicio, R.drawable.ic_home, R.color.colorInicioBase);
-        AHBottomNavigationItem buscar = new AHBottomNavigationItem(R.string.buscar, R.drawable.ic_search, R.color.colorBuscarBase);
-        AHBottomNavigationItem perfil = new AHBottomNavigationItem(R.string.perfil, R.drawable.ic_profile, R.color.colorPerfilBase);
-        AHBottomNavigationItem favoritos = new AHBottomNavigationItem(R.string.favoritos, R.drawable.ic_favorite, R.color.colorFavoritosBase);
-        AHBottomNavigationItem mensajes = new AHBottomNavigationItem(R.string.mensajes, R.drawable.ic_chat, R.color.colorMensajesBase);
+                break;
+            case R.id.menu_buscarItem:
+                frag = new BuscarFragment();
 
-        navigation.addItem(inicio);
-        navigation.addItem(buscar);
-        navigation.addItem(perfil);
-        navigation.addItem(favoritos);
-        navigation.addItem(mensajes);
-        navigation.setCurrentItem(0);
-        navigation.setBehaviorTranslationEnabled(false);
-        navigation.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
-        navigation.setColored(true);
-        navigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
-        navigation.setNotification("1", 4);
+                break;
+            case R.id.menu_perfilItem:
+                frag = new PerfilFragment();
+                break;
+            case R.id.menu_favoritosItem:
+                frag = new FavoritosFragment();
+                break;
+            case R.id.menu_mensajesItem:
+                frag = new AddRecetaFragment();
+                break;
+        }
+
+        // update selected item
+        mSelectedItem = item.getItemId();
+
+        // uncheck the other items.
+        for (int i = 0; i< navigation.getMenu().size(); i++) {
+            MenuItem menuItem = navigation.getMenu().getItem(i);
+            menuItem.setChecked(menuItem.getItemId() == item.getItemId());
+        }
+
+        //updateToolbarText(item.getTitle());
+
+        if (frag != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.fragment_container, frag, frag.getTag());
+            ft.commit();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SELECTED_ITEM, mSelectedItem);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        MenuItem homeItem = navigation.getMenu().getItem(0);
+        if (mSelectedItem != homeItem.getItemId()) {
+            // select home item
+            selectFragment(homeItem);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        permissionGranted.permissionGrant(requestCode, permissions, grantResults);
+
     }
 
 
