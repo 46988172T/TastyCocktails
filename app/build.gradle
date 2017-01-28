@@ -45,6 +45,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.varunest:sparkbutton:1.0.3'
     compile 'com.beardedhen:androidbootstrap:2.3.1'
+    compile 'com.frosquivel:magicalcamera:5.0.2'
     compile 'com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0'
     testCompile 'junit:junit:4.12'
 }

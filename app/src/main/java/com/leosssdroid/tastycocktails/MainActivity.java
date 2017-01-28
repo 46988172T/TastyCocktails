@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.frosquivel.magicalcamera.Functionallities.PermissionGranted;
 import com.leosssdroid.tastycocktails.Fragments.BuscarFragment;
 import com.leosssdroid.tastycocktails.Fragments.FavoritosFragment;
 import com.leosssdroid.tastycocktails.Fragments.InicioFragment;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.navigation) AHBottomNavigation navigation;
+    public static PermissionGranted permissionGranted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,15 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.setDebug(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorInicioBase));
         createItemsBottomNavigation();
-
+        permissionGranted = new PermissionGranted(this);
+        if (android.os.Build.VERSION.SDK_INT >= 25) {
+            permissionGranted.checkAllMagicalCameraPermission();
+        }else{
+            permissionGranted.checkCameraPermission();
+            permissionGranted.checkReadExternalPermission();
+            permissionGranted.checkWriteExternalPermission();
+            permissionGranted.checkLocationPermission();
+        }
         //Inicio
         InicioFragment inicioFragment = new InicioFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, inicioFragment).commit();
@@ -100,6 +110,11 @@ public class MainActivity extends AppCompatActivity {
         navigation.setColored(true);
         navigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
         navigation.setNotification("1", 4);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        permissionGranted.permissionGrant(requestCode, permissions, grantResults);
     }
 
 
