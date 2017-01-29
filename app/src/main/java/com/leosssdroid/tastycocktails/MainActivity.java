@@ -2,6 +2,7 @@ package com.leosssdroid.tastycocktails;
 
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
-
+    Fragment frag;
     private int mSelectedItem;
     private static final String SELECTED_ITEM = "arg_selected_item";
 
@@ -41,11 +43,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorInicioBase));
+        getWindow().setStatusBarColor(getResources().getColor(R.color.foreground_material_light));
 
-        View view = navigation.findViewById(R.id.menu_perfilItem);
-        view.performClick();
-        selectFragment(navigation.getMenu().getItem(2));
+
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+        View view = navigation.findViewById(R.id.menu_perfilItem);
+        view.performClick();
         /*MenuItem selectedItem;
         if (savedInstanceState != null) {
             mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectFragment(MenuItem item) {
-        Fragment frag = null;
+        frag = null;
         // init corresponding fragment
         switch (item.getItemId()) {
             case R.id.menu_inicioItem:
@@ -92,10 +94,10 @@ public class MainActivity extends AppCompatActivity {
         mSelectedItem = item.getItemId();
 
         // uncheck the other items.
-        for (int i = 0; i< navigation.getMenu().size(); i++) {
+        /*for (int i = 0; i< navigation.getMenu().size(); i++) {
             MenuItem menuItem = navigation.getMenu().getItem(i);
             menuItem.setChecked(menuItem.getItemId() == item.getItemId());
-        }
+        }*/
 
         //updateToolbarText(item.getTitle());
 
@@ -114,10 +116,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        MenuItem homeItem = navigation.getMenu().getItem(0);
+        MenuItem homeItem = navigation.getMenu().getItem(2);
         if (mSelectedItem != homeItem.getItemId()) {
             // select home item
             selectFragment(homeItem);
+            View view = navigation.findViewById(R.id.menu_perfilItem);
+            view.performClick();
         } else {
             super.onBackPressed();
         }
@@ -127,8 +131,4 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
     }
-
-
-
-
 }
