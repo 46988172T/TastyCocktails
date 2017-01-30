@@ -76,7 +76,7 @@ public class AddRecetaFragment extends Fragment implements ImagePickerCallback {
     Button uploadButton;
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference recetasRef = mDatabase.child("recetas");
+    DatabaseReference recetasRef = mDatabase.child("recetas").push();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl("gs://tasty-cocktails.appspot.com");
     StorageReference imagesRef = storageRef.child("images");
@@ -143,7 +143,9 @@ public class AddRecetaFragment extends Fragment implements ImagePickerCallback {
                             nuevaReceta.setIngredientes(recipeIngredientes.getText().toString());
                             nuevaReceta.setIdUsuario(Profile.getCurrentProfile().getId());
                             nuevaReceta.setPicture(downloadUrl.toString());
-                            recetasRef.push().setValue(nuevaReceta);
+                            recetasRef.setValue(nuevaReceta);
+                            DatabaseReference refUser = mDatabase.child("users").child(Profile.getCurrentProfile().getId()).child("recipes").child(recetasRef.getKey());
+                            refUser.setValue("true");
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setMessage(R.string.dialog_add_receta)
                                     .setTitle(R.string.app_name);

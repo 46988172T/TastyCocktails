@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        View view = navigation.findViewById(R.id.menu_perfilItem);
+        View view = navigation.findViewById(R.id.menu_inicioItem);
         view.performClick();
         /*MenuItem selectedItem;
         if (savedInstanceState != null) {

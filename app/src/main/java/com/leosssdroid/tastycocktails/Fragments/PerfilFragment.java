@@ -22,12 +22,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.leosssdroid.tastycocktails.LoginActivity;
 import com.leosssdroid.tastycocktails.R;
 import com.leosssdroid.tastycocktails.Clases.UserTasty;
 
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -47,6 +49,9 @@ public class PerfilFragment extends Fragment {
     @BindView(R.id.profileImage) CircleImageView profileImage;
     @BindView(R.id.profileName) TextView profileName;
     @BindView(R.id.profileDescription) TextView profileDescription;
+    @BindView(R.id.followers) TextView followers;
+    @BindView(R.id.recipes) TextView recetas;
+    @BindView(R.id.following) TextView following;
     @BindView(R.id.ibLogoutFb) ImageButton ibLogoutFb;
 
     static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -127,21 +132,70 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                profileName.setText(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("name").getValue(String.class));
-                profileDescription.setText(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("description").getValue(String.class));
-
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    UserTasty userSnapshot = postSnapshot.getValue(UserTasty.class);
+                    GenericTypeIndicator<UserTasty> genericTypeIndicator = new GenericTypeIndicator<UserTasty>() {};
+                    UserTasty userSnapshot = postSnapshot.getValue(genericTypeIndicator);
                     if(userSnapshot.getIdFacebbok().equals(Profile.getCurrentProfile().getId())){
                         userTastyFromFirebase = userSnapshot;
+
                         break;
                     }
                 }
+
+                profileName.setText(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("name").getValue(String.class));
+                profileDescription.setText(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("description").getValue(String.class));
+
+                //Rellenamos el textView de los followers verificando cuales estan a true (string) porque si nos dejan de seguir puede estar a false.
+                if(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("followers").exists()){
+                    int seguidores = 0;
+                    Map<String, String> followersMap;
+                    followersMap = userTastyFromFirebase.getFollowers();
+                    for(Map.Entry<String,String> e: followersMap.entrySet()) {
+                        if(e.getValue().equals("true")){
+                            seguidores += 1;
+                        }
+                    }
+                    followers.setText(String.valueOf(seguidores));
+                }else{
+                    followers.setText("0");
+                }
+
+                //Rellenamos el textView de los following verificando cuales estan a true (string) porque si nos dejan de seguir puede estar a false.
+                if(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("followers").exists()){
+                    int seguidores = 0;
+                    Map<String, String> followingMap;
+                    followingMap = userTastyFromFirebase.getFollowing();
+                    for(Map.Entry<String,String> e: followingMap.entrySet()) {
+                        if(e.getValue().equals("true")){
+                            seguidores += 1;
+                        }
+                    }
+                    following.setText(String.valueOf(seguidores));
+                }else{
+                    following.setText("0");
+                }
+
+
+
+                //Rellenamos el textView de las recetas simplemente contando cuantas tenemos.
+                if(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("recipes").exists()) {
+                    recetas.setText(String.valueOf(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("recipes").getChildrenCount()));
+                }else{
+                    recetas.setText("0");
+                }
+
+                /*if(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("favs").exists()) {
+                    favs.setText(String.valueOf(dataSnapshot.child(Profile.getCurrentProfile().getId()).child("favs").getChildrenCount()));
+                }else{
+                    favs.setText("0");
+                }*/
+
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                System.out.println("ERRRRRROOOOOOORRRRR");
             }
         });
     }

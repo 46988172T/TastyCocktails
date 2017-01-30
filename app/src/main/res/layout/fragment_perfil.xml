@@ -103,31 +103,15 @@
             android:textAlignment="center">
 
             <RelativeLayout
-                android:id="@+id/favs_relative"
+                android:id="@+id/followers_relative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <!---
-                <com.varunest.sparkbutton.SparkButton
-                    android:id="@+id/likebutton"
-                    android:elevation="4dp"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center|left"
-                    app:sparkbutton_iconSize="24dp"
-                    app:sparkbutton_activeImage="@drawable/ic_favorite_purple_active_18dp"
-                    app:sparkbutton_inActiveImage="@drawable/ic_favorite_white_inactive_18dp"
-                    app:sparkbutton_primaryColor="@color/textProfile"
-                    app:sparkbutton_secondaryColor="@color/colorAccent"
-                    app:sparkbutton_animationSpeed="1"
-                    />
--->
-
                 <ImageView
-                    android:id="@+id/like_image"
+                    android:id="@+id/followers_image"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_favorite_white_24dp"
+                    android:src="@drawable/ic_people_white_24dp"
                     android:layout_marginRight="12dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="18dp"
@@ -136,21 +120,51 @@
                 <TextView
                     android:textSize="24dp"
                     android:textColor="@color/textProfile"
-                    android:text="123"
+                    android:text="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/likes"
+                    android:id="@+id/followers"
                     android:layout_marginRight="18dp"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/like_image" />
+                    android:layout_toEndOf="@+id/followers_image" />
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/following_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/followers_relative">
+
+                <ImageView
+                    android:id="@+id/following_image"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_people_outline_white_24dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"/>
+
+                <TextView
+                    android:textSize="24dp"
+                    android:textColor="@color/textProfile"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/following"
+                    android:layout_marginRight="18dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/following_image" />
+
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/recipes_relative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/favs_relative">
+                android:layout_toEndOf="@id/following_relative">
 
                 <ImageView
                     android:id="@+id/recipes_image"
@@ -165,43 +179,13 @@
                 <TextView
                     android:textSize="24dp"
                     android:textColor="@color/textProfile"
-                    android:text="435"
+                    android:text="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recetas"
+                    android:id="@+id/recipes"
                     android:layout_marginRight="18dp"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/recipes_image" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/stars_relative"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/recipes_relative">
-
-                <ImageView
-                    android:id="@+id/stars_image"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_star_white_24dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginBottom="18dp"/>
-
-                <TextView
-                    android:textSize="24dp"
-                    android:textColor="@color/textProfile"
-                    android:text="154"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/puntos"
-                    android:layout_marginRight="18dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/stars_image" />
 
             </RelativeLayout>
         </RelativeLayout>

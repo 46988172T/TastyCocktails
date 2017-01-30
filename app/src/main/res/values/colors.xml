@@ -29,8 +29,12 @@
 
     <!--- Color filters -->
     <color name="bgProfile">#512c4d</color>
+    <color name="color_tasty_card">#f2fcdf</color>
+
 
     <!---TextColors-->
     <color name="textProfile">#ffffff</color>
+    <color name="textCardsTitulo">#8b9972</color>
+    <color name="textCardsNombre">#576047</color>
 
 </resources>
