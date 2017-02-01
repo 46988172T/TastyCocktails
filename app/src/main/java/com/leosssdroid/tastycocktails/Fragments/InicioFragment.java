@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 public class InicioFragment extends Fragment {
 
     View viewInicio;
-    ArrayList<Recetas> listaRecetas = new ArrayList<>();
+    public static ArrayList<Recetas> listaRecetas = new ArrayList<>();
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     DatabaseReference refRecetas = mDatabase.child("recetas");
@@ -52,12 +52,13 @@ public class InicioFragment extends Fragment {
         viewInicio = inflater.inflate(R.layout.fragment_inicio, container, false);
         ButterKnife.bind(this, viewInicio);
         //recyclerViewInicio = (RecyclerView)viewInicio.findViewById(R.id.recycler_view_inicio);
-        getRecetas();
+
 
         return viewInicio;
     }
 
     private void getRecetas() {
+
         ValueEventListener postlistener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,7 +85,9 @@ public class InicioFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-
+        if(!listaRecetas.isEmpty()) {
+            listaRecetas.clear();
+        }
+        getRecetas();
     }
 }

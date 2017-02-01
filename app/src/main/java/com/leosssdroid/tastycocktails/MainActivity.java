@@ -8,9 +8,12 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +26,7 @@ import com.frosquivel.magicalcamera.Functionallities.PermissionGranted;
 import com.leosssdroid.tastycocktails.Fragments.BuscarFragment;
 import com.leosssdroid.tastycocktails.Fragments.FavoritosFragment;
 import com.leosssdroid.tastycocktails.Fragments.InicioFragment;
+import com.leosssdroid.tastycocktails.Fragments.MensajesFragment;
 import com.leosssdroid.tastycocktails.Fragments.PerfilFragment;
 import com.leosssdroid.tastycocktails.Fragments.AddRecetaFragment;
 
@@ -33,9 +37,16 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
-    Fragment frag;
-    private int mSelectedItem;
-    private static final String SELECTED_ITEM = "arg_selected_item";
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
+    MenuItem prevMenuItem;
+
+    InicioFragment inicioFragment;
+    BuscarFragment buscarFragment;
+    PerfilFragment perfilFragment;
+    FavoritosFragment favoritosFragment;
+    AddRecetaFragment addRecetaFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,89 +57,72 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.foreground_material_light));
 
 
-
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                selectFragment(item);
-                return true;
+                switch (item.getItemId()) {
+                    case R.id.menu_inicioItem:
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case R.id.menu_buscarItem:
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case R.id.menu_perfilItem:
+                        viewPager.setCurrentItem(2);
+                        break;
+                    case R.id.menu_favoritosItem:
+                        viewPager.setCurrentItem(3);
+                        break;
+                    case R.id.menu_mensajesItem:
+                        viewPager.setCurrentItem(4);
+                        break;
+                }
+                return false;
             }
         });
-        View view = navigation.findViewById(R.id.menu_inicioItem);
-        view.performClick();
-        /*MenuItem selectedItem;
-        if (savedInstanceState != null) {
-            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
-            selectedItem = navigation.getMenu().findItem(mSelectedItem);
-        } else {
-            selectedItem = navigation.getMenu().getItem(0);
-        }
-        selectFragment(selectedItem);*/
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (prevMenuItem != null) {
+                    prevMenuItem.setChecked(false);
+                } else {
+                    navigation.getMenu().getItem(0).setChecked(false);
+                }
+                Log.d("page", "onPageSelected: " + position);
+                navigation.getMenu().getItem(position).setChecked(true);
+                prevMenuItem = navigation.getMenu().getItem(position);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+
+
+        });
+        setupViewPager(viewPager);
     }
 
-    private void selectFragment(MenuItem item) {
-        frag = null;
-        // init corresponding fragment
-        switch (item.getItemId()) {
-            case R.id.menu_inicioItem:
-                frag = new InicioFragment();
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        inicioFragment=new InicioFragment();
+        buscarFragment=new BuscarFragment();
+        perfilFragment=new PerfilFragment();
+        favoritosFragment=new FavoritosFragment();
+        addRecetaFragment=new AddRecetaFragment();
 
-                break;
-            case R.id.menu_buscarItem:
-                frag = new BuscarFragment();
-
-                break;
-            case R.id.menu_perfilItem:
-                frag = new PerfilFragment();
-                break;
-            case R.id.menu_favoritosItem:
-                frag = new FavoritosFragment();
-                break;
-            case R.id.menu_mensajesItem:
-                frag = new AddRecetaFragment();
-                break;
-        }
-
-        // update selected item
-        mSelectedItem = item.getItemId();
-
-        // uncheck the other items.
-        /*for (int i = 0; i< navigation.getMenu().size(); i++) {
-            MenuItem menuItem = navigation.getMenu().getItem(i);
-            menuItem.setChecked(menuItem.getItemId() == item.getItemId());
-        }*/
-
-        //updateToolbarText(item.getTitle());
-
-        if (frag != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.fragment_container, frag, frag.getTag());
-            ft.commit();
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(SELECTED_ITEM, mSelectedItem);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onBackPressed() {
-        MenuItem homeItem = navigation.getMenu().getItem(2);
-        if (mSelectedItem != homeItem.getItemId()) {
-            // select home item
-            selectFragment(homeItem);
-            View view = navigation.findViewById(R.id.menu_perfilItem);
-            view.performClick();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
+        adapter.addFragment(inicioFragment);
+        adapter.addFragment(buscarFragment);
+        adapter.addFragment(perfilFragment);
+        adapter.addFragment(favoritosFragment);
+        adapter.addFragment(addRecetaFragment);
+        viewPager.setAdapter(adapter);
     }
 }
