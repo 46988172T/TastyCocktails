@@ -1,26 +1,28 @@
 package com.leosssdroid.tastycocktails.Clases;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Leosss on 26/01/2017.
  */
 
-public class Recetas {
+public class Recetas implements Serializable {
     private String nombre, descripcion, ingredientes, picture, idUsuario;
-    //private Map<Integer,String> pasos = new HashMap<Integer, String>();
+    private Map<String,String> likes = new TreeMap();
 
     public Recetas() {
     }
 
-    public Recetas(String nombre, String descripcion, String ingredientes, String picture, String idUsuario/*, Map<Integer, String> pasos*/) {
+    public Recetas(String nombre, String descripcion, String ingredientes, String picture, String idUsuario, Map<String, String> likes) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ingredientes = ingredientes;
         this.picture = picture;
         this.idUsuario = idUsuario;
-        //this.pasos = pasos;
+        this.likes = likes;
     }
 
     public String getNombre() {
@@ -63,11 +65,11 @@ public class Recetas {
         this.idUsuario = idUsuario;
     }
 
-    /*public Map<Integer, String> getPasos() {
-        return pasos;
+    public Map<String, String> getLikes() {
+        return likes;
     }
 
-    public void setPasos(Map<Integer, String> pasos) {
-        this.pasos = pasos;
-    }*/
+    public void setLikes(Map<String, String> likes) {
+        this.likes = likes;
+    }
 }

@@ -79,10 +79,8 @@
                 android:layout_marginStart="16dp"
                 card_view:layout_constraintLeft_toLeftOf="parent" />
 
-
-            ¡¡
-
         </android.support.constraint.ConstraintLayout>
+
     </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

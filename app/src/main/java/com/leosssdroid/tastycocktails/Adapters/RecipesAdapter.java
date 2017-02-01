@@ -1,13 +1,17 @@
 package com.leosssdroid.tastycocktails.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.leosssdroid.tastycocktails.Clases.Recetas;
 import com.leosssdroid.tastycocktails.Clases.UserTasty;
+import com.leosssdroid.tastycocktails.DetailRecetas;
 import com.leosssdroid.tastycocktails.R;
+import com.varunest.sparkbutton.SparkButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder> {
     ArrayList<Recetas> recetas;
     Context context;
+
 
     public RecipesAdapter(@NonNull ArrayList<Recetas> recetas, Context context){
         this.recetas = recetas;
@@ -64,7 +71,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
         });
 
         holder.titulo.setText(rec.getNombre());
-        //holder.nombre.setText("Subido por "+rec.getIdUsuario());
     }
 
     @Override
@@ -73,18 +79,45 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
     }
 
 
-    class RecipesViewHolder extends RecyclerView.ViewHolder {
+    class RecipesViewHolder extends RecyclerView.ViewHolder{
         private ImageView imagen_receta;
         private CircleImageView userPic;
         private TextView titulo, nombre;
 
-        public RecipesViewHolder(View itemView) {
+        public RecipesViewHolder(final View itemView) {
             super(itemView);
             imagen_receta = (ImageView) itemView.findViewById(R.id.imagen_coctel_card);
             userPic = (CircleImageView) itemView.findViewById(R.id.profileImageRecetaCard);
             titulo = (TextView) itemView.findViewById(R.id.titulo_card);
             nombre = (TextView) itemView.findViewById(R.id.nombre_user_card);
+            userPic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    //Gestionar onClick para ir al perfil del usuario que ha subido la receta
+
+                    Toast.makeText(context, "Abrir perfil del usuario que ha subido receta", Toast.LENGTH_SHORT).show();
+                }
+            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int item = getAdapterPosition();
+                    Recetas receta = recetas.get(item);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Objeto", receta);
+                    Intent intent = new Intent(context,DetailRecetas.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+
+                    //gestionar el onClick para ver el detalle de la receta
+                    Toast.makeText(context, "Abrir Receta", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        public CircleImageView getUserPic() {
+            return userPic;
         }
 
         public ImageView getImagen_receta() {
@@ -98,5 +131,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
         public TextView getNombre() {
             return nombre;
         }
+
     }
 }

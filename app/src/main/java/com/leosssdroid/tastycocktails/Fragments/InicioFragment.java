@@ -62,6 +62,9 @@ public class InicioFragment extends Fragment {
         ValueEventListener postlistener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!listaRecetas.isEmpty()) {
+                    listaRecetas.clear();
+                }
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recetas recetaSnapshot = postSnapshot.getValue(Recetas.class);
                     listaRecetas.add(recetaSnapshot);
@@ -85,9 +88,6 @@ public class InicioFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(!listaRecetas.isEmpty()) {
-            listaRecetas.clear();
-        }
         getRecetas();
     }
 }
