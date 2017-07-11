@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     MenuItem prevMenuItem;
 
+
     InicioFragment inicioFragment;
     BuscarFragment buscarFragment;
     PerfilFragment perfilFragment;
