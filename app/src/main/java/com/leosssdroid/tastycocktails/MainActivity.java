@@ -1,5 +1,6 @@
 package com.leosssdroid.tastycocktails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+
+import com.facebook.Profile;
 import com.leosssdroid.tastycocktails.Fragments.BuscarFragment;
 import com.leosssdroid.tastycocktails.Fragments.FavoritosFragment;
 import com.leosssdroid.tastycocktails.Fragments.InicioFragment;
@@ -40,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.setDebug(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.foreground_material_light));
 
+        if(Profile.getCurrentProfile()==null){
+            Intent intent = new Intent(this,LoginActivity.class);
+            this.startActivity(intent);
+        }
 
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
