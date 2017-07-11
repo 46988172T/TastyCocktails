@@ -1,32 +1,15 @@
 package com.leosssdroid.tastycocktails;
 
-
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.frosquivel.magicalcamera.Functionallities.PermissionGranted;
 import com.leosssdroid.tastycocktails.Fragments.BuscarFragment;
 import com.leosssdroid.tastycocktails.Fragments.FavoritosFragment;
 import com.leosssdroid.tastycocktails.Fragments.InicioFragment;
-import com.leosssdroid.tastycocktails.Fragments.MensajesFragment;
 import com.leosssdroid.tastycocktails.Fragments.PerfilFragment;
 import com.leosssdroid.tastycocktails.Fragments.AddRecetaFragment;
 
