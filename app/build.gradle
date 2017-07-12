@@ -52,6 +52,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.github.jd-alexander:LikeButton:0.2.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

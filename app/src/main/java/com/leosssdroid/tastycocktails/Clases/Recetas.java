@@ -72,4 +72,6 @@ public class Recetas implements Serializable {
     public void setLikes(Map<String, String> likes) {
         this.likes = likes;
     }
+
+    //TODO implementar likes
 }

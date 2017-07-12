@@ -37,4 +37,9 @@
     <color name="textCardsTitulo">#8b9972</color>
     <color name="textCardsNombre">#576047</color>
 
+    <!---IconsColors-->
+    <color name="dotsSecondary">#ffffff</color>
+    <color name="dotsPrimary">#8b9972</color>
+    <color name="iconActive">#576047</color>
+
 </resources>

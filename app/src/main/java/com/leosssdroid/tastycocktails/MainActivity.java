@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.setDebug(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.foreground_material_light));
 
+        //Si Profile.getCurrentProfile() nos lleva a la actividad de Login
         if(Profile.getCurrentProfile()==null){
             Intent intent = new Intent(this,LoginActivity.class);
             this.startActivity(intent);
